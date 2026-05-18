@@ -22,7 +22,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install python-telegram-bot==20.7 cryptography requests
+        run: pip install "python-telegram-bot[job-queue]==20.7" cryptography requests
 
       - name: Run Bot
         env:
