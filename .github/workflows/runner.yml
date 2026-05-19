@@ -4,10 +4,12 @@ on:
   schedule:
     - cron: '0 */6 * * *'
   workflow_dispatch:
+  repository_dispatch:
+    types: [bot-updated]
 
 concurrency:
   group: bot-runner
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   run-bot:
