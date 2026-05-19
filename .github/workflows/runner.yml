@@ -59,7 +59,10 @@ jobs:
   trigger-next:
     needs: run-bot
     runs-on: ubuntu-latest
-    if: always()
+    # Only trigger next run if the bot ran for real (not cancelled, not bot-updated dispatch)
+    if: >
+      github.event_name != 'repository_dispatch' &&
+      (needs.run-bot.result == 'success' || needs.run-bot.result == 'failure')
     steps:
       - name: Trigger next run
         uses: actions/github-script@v7
