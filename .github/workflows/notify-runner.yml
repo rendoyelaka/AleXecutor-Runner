@@ -1,0 +1,21 @@
+name: Notify Runner on Update
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Runner Restart
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_PAT }}
+          script: |
+            await github.rest.repos.createDispatchEvent({
+              owner: 'rendoyelaka',
+              repo: 'AleXecutor-Runner',
+              event_type: 'bot-updated'
+            });
+            console.log('✅ Runner restart triggered!');
